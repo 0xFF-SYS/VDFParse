@@ -1,16 +1,19 @@
 # VDFParse
 
-**VDFParse** is a lightweight, single-header C++ parser for Valve's KeyValue (VDF/ACF/VCF) formatted files. It reads `.acf`, `.vdf`, `.vcf`, and similar files used by Steam and parses them into a JSON-like C++ data structure for easy access and manipulation.
+**VDFParse** is available as both a lightweight, single-header C++ parser and a Python module for Valve's KeyValue (VDF/ACF/VCF) formatted files. It reads `.acf`, `.vdf`, `.vcf`, and similar files used by Steam and parses them into a structured data format for easy access and manipulation.
 
 ## Features
 
-- 📄 Single-header, zero-dependency library  
+- 📄 Available as a single-header C++ library and a Python module
 - 🧠 Parses Steam VDF, ACF, VCF files  
 - 🔄 Outputs data in a structured, JSON-like format  
 - 🧪 Input from file path or raw string  
-- 🛠️ Simple API with exception handling  
+- 🛠️ Simple API with exception handling
+- 🐍 Python implementation with similar API to C++
 
 ## Example Usage
+
+### C++ Usage
 
 ```cpp
 #include "VDFParse.h"
@@ -44,7 +47,7 @@ int main() {
 }
 ```
 
-### Parsing from a String
+#### Parsing from a String in C++
 
 ```cpp
 std::string vdfText = R"
@@ -58,7 +61,60 @@ std::string vdfText = R"
 auto Data = SteamVDF::VDFParse(vdfText);
 ```
 
+### Python Usage
+
+```python
+from VDFParse import VDFParse
+
+def main():
+    try:
+        data = VDFParse("C:\\Program Files (x86)\\Steam\\steamapps\\appmanifest_252490.acf")
+        app_state = data["AppState"]
+        
+        app_id = app_state["appid"]
+        name = app_state["name"]
+        last_updated = app_state["lastupdated"]
+        size_on_disk = app_state["SizeOnDisk"]
+        
+        print(f"AppID: {app_id}")
+        print(f"Name: {name}")
+        print(f"Last Updated: {last_updated}")
+        print(f"Size On Disk: {size_on_disk}")
+    except RuntimeError as e:
+        print(f"Exception: {str(e)}")
+
+if __name__ == "__main__":
+    main()
+```
+
+#### Parsing from a String in Python
+
+```python
+vdf_text = """
+"AppState"
+{
+    "appid" "252490"
+    "name" "Rust"
+}
+"""
+
+data = VDFParse(vdf_text)
+```
+
+#### Converting to Python Dictionary
+
+```python
+from VDFParse import VDFParse, ConvertVDFToDict
+import json
+
+data = VDFParse(vdf_text)
+dict_data = ConvertVDFToDict(data)
+print(json.dumps(dict_data, indent=2))
+```
+
 ## Getting Started
+
+### C++
 
 1. **Include the header:**
 
@@ -72,15 +128,48 @@ auto Data = SteamVDF::VDFParse(vdfText);
 
    This is a header-only library; no linking required.
 
+### Python
+
+1. **Use the Python module:**
+
+   Copy `VDFParse.py` into your project and import it:
+
+   ```python
+   from VDFParse import VDFParse, VDFValue, ConvertVDFToDict
+   ```
+
+2. **Run your script:**
+
+   No additional installation required, just make sure `VDFParse.py` is in your project directory or Python path.
+
 ## API
+
+### C++ API
 
 ```cpp
 SteamVDF::VDFParse(path_or_string);
 ```
 
 - Accepts either a file path (`std::string`) or raw VDF text as input.
-- Returns a nested structure (e.g., `std::map<std::string, std::any>` depending on your implementation).
+- Returns a nested structure that can be accessed with operator[].
 - Throws `std::runtime_error` on parsing errors.
+
+### Python API
+
+```python
+VDFParse(path_or_string)
+```
+
+- Accepts either a file path (`str`) or raw VDF text as input.
+- Returns a `VDFValue` object that can be accessed with dictionary-like syntax.
+- Throws `RuntimeError` on parsing errors.
+
+Additional Python Utility Functions:
+
+```python
+ConvertVDFToDict(vdf_value)  # Convert VDFValue to a Python dictionary
+DebugPrint(vdf_value)        # Print a VDFValue for debugging
+```
 
 ## License
 
