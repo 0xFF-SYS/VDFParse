@@ -168,6 +168,7 @@ Additional Python Utility Functions:
 
 ```python
 ConvertVDFToDict(vdf_value)  # Convert VDFValue to a Python dictionary
+ParseSteamCmdOutput(output)  # Parses steamCMD output
 DebugPrint(vdf_value)        # Print a VDFValue for debugging
 ```
 
