@@ -131,7 +131,9 @@ print(json.dumps(dict_data, indent=2))
 ### Python
 
 1. **Use the Python module:**
-
+   Either run ```python
+   pip install vdfparse
+   ``` or
    Copy `VDFParse.py` into your project and import it:
 
    ```python
@@ -141,6 +143,8 @@ print(json.dumps(dict_data, indent=2))
 2. **Run your script:**
 
    No additional installation required, just make sure `VDFParse.py` is in your project directory or Python path.
+
+
 
 ## API
 
