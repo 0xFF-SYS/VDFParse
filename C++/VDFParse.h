@@ -122,7 +122,12 @@ namespace SteamVDF {
 
         std::string ToString() const {
             if (!Node) return "null";
-            return Node->ToString();
+            std::string str = Node->ToString();
+
+            if (!str.empty() && str.front() == '"' && str.back() == '"') {
+                str = str.substr(1, str.size() - 2);
+            }
+            return str;
         }
 
         bool IsNull() const {
