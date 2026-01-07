@@ -1,6 +1,6 @@
 # VDFParse
 
-**VDFParse** is available as both a lightweight, single-header C++ parser and a Python module for Valve's KeyValue (VDF/ACF/VCF) formatted files. It reads `.acf`, `.vdf`, `.vcf`, and similar files used by Steam and parses them into a structured data format for easy access and manipulation.
+**VDFParse** is available as both a lightweight, single-header C++ parser and a Python module for Valve's KeyValue (VDF/ACF/VCF) formatted files. It reads `.acf`, `.vdf`, `.vcf`, and similar files used by Steam and parses them into a structured data format for easy access reading.
 
 ## Features
 
